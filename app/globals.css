@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 4px; }
+
+/* Staggered card float-in delays */
+.card-delay-0 { animation-delay: 0ms; }
+.card-delay-1 { animation-delay: 80ms; }
+.card-delay-2 { animation-delay: 160ms; }
+.card-delay-3 { animation-delay: 240ms; }
+
+/* Output prose */
+.output-content h1, .output-content h2, .output-content h3 {
+  font-weight: 600;
+  margin-top: 1.1rem;
+  margin-bottom: 0.4rem;
+  color: #1e293b;
+}
+.output-content h1 { font-size: 1.2rem; }
+.output-content h2 { font-size: 1.05rem; }
+.output-content h3 { font-size: 0.95rem; }
+.output-content ul, .output-content ol { padding-left: 1.25rem; margin: 0.5rem 0; }
+.output-content ul { list-style-type: disc; }
+.output-content ol { list-style-type: decimal; }
+.output-content li { margin: 0.3rem 0; line-height: 1.6; }
+.output-content p { margin: 0.5rem 0; line-height: 1.7; }
+.output-content strong { font-weight: 600; color: #334155; }
