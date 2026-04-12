@@ -136,11 +136,11 @@ const styleMap: Record<Format, StyleOption[]> = {
   ],
 };
 
-const formatHeadings: Record<Format, { title: string; subtitle: string }> = {
-  linkedin:     { title: "Choose your style",    subtitle: "How should your LinkedIn post feel?" },
-  prompt:       { title: "Choose prompt type",   subtitle: "What should the AI do with your input?" },
-  speech:       { title: "Choose your delivery", subtitle: "What tone should your speech carry?" },
-  presentation: { title: "Choose your approach", subtitle: "How should your presentation land?" },
+const formatHeadings: Record<Format, { step: string; title: string; subtitle: string }> = {
+  linkedin:     { step: "Step 2 — Define your voice",    title: "How should it sound?",       subtitle: "You're shaping the voice of your LinkedIn post" },
+  prompt:       { step: "Step 2 — Define your intent",   title: "What should it do?",          subtitle: "You're deciding what the AI will be asked to achieve" },
+  speech:       { step: "Step 2 — Define your delivery", title: "How will it land?",           subtitle: "You're choosing the emotional register of your speech" },
+  presentation: { step: "Step 2 — Define your approach", title: "What's the energy?",          subtitle: "You're setting the tone your audience will feel" },
 };
 
 interface ContextStepProps {
@@ -156,7 +156,9 @@ export default function ContextStep({ format, selected, onSelect }: ContextStepP
   return (
     <div className="w-full animate-fade-in">
       <div className="text-center mb-12">
-        <p className="text-xs font-semibold text-slate-300 uppercase tracking-[0.2em] mb-4">Step 2 of 4</p>
+        <p className="text-xs font-medium text-slate-300 tracking-[0.18em] mb-4">
+          {heading.step}
+        </p>
         <h2 className="font-bold text-slate-900 tracking-tight" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>
           {heading.title}
         </h2>

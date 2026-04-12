@@ -48,12 +48,14 @@ export default function ToneStep({ selected, onSelect }: ToneStepProps) {
   return (
     <div className="w-full animate-fade-in">
       <div className="text-center mb-12">
-        <p className="text-xs font-semibold text-slate-300 uppercase tracking-[0.2em] mb-4">Step 1 of 4</p>
+        <p className="text-xs font-medium text-slate-300 tracking-[0.18em] mb-4">
+          Step 1 — <span className="text-slate-400">Pick your format</span>
+        </p>
         <h2 className="font-bold text-slate-900 tracking-tight" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>
           What are you creating?
         </h2>
         <p className="mt-3 text-slate-400" style={{ fontSize: "clamp(0.9rem, 1.5vw, 1.05rem)" }}>
-          Choose the format that fits your goal
+          Every great piece starts with knowing what it is
         </p>
       </div>
 

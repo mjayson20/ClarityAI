@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import LandingScreen from "@/components/LandingScreen";
 import StepBreadcrumb from "@/components/StepBreadcrumb";
+import ConfirmationMoment from "@/components/ConfirmationMoment";
 import ToneStep from "@/components/steps/ToneStep";
 import ContextStep from "@/components/steps/ContextStep";
 import InputStep from "@/components/steps/InputStep";
@@ -10,13 +11,16 @@ import OutputStep from "@/components/steps/OutputStep";
 import { type Format, type Style } from "@/components/ModeSelector";
 import { type ClarityScoreData } from "@/components/ClarityScore";
 
-type Step = 0 | 1 | 2 | 3 | 4;
+// 2.5 = confirmation moment between style selection and input
+type Step = 0 | 1 | 2 | 2.5 | 3 | 4;
 
-const stepNames: Record<number, string> = {
-  1: "Format",
-  2: "Style",
-  3: "Input",
-  4: "Output",
+const stepLabel = (step: Step): string => {
+  if (step === 1)   return "Pick your format";
+  if (step === 2)   return "Define your voice";
+  if (step === 2.5) return "Your canvas is ready";
+  if (step === 3)   return "Write freely";
+  if (step === 4)   return "Your output";
+  return "";
 };
 
 export default function Home() {
@@ -30,7 +34,6 @@ export default function Home() {
   const [beforeScore, setBeforeScore] = useState<ClarityScoreData | null>(null);
   const [afterScore, setAfterScore]   = useState<ClarityScoreData | null>(null);
 
-  // When format changes, clear the style selection
   const handleFormatSelect = (f: Format) => {
     setFormat(f);
     setStyle(null);
@@ -42,7 +45,8 @@ export default function Home() {
 
   const goNext = () => {
     if (step === 1 && format) setStep(2);
-    else if (step === 2 && style) setStep(3);
+    // After style selection → confirmation moment
+    else if (step === 2 && style) setStep(2.5);
   };
 
   const handleClarify = useCallback(async () => {
@@ -90,22 +94,23 @@ export default function Home() {
   if (step === 0) return <LandingScreen onStart={() => setStep(1)} />;
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#f9f8f6" }}>
       {/* Minimal nav */}
-      <header className="w-full px-8 py-5 flex items-center justify-between border-b border-slate-50">
+      <header className="w-full px-8 py-5 flex items-center justify-between"
+        style={{ borderBottom: "1px solid rgba(0,0,0,0.04)" }}>
         <button
           onClick={handleStartOver}
           className="text-sm font-semibold text-slate-900 tracking-tight hover:text-indigo-600 transition-colors duration-200"
         >
           ClarityAI
         </button>
-        <span className="text-xs text-slate-300 font-medium">{stepNames[step]}</span>
+        <span className="text-xs text-slate-300 font-medium">{stepLabel(step)}</span>
       </header>
 
       <main className="flex-1 w-full max-w-7xl mx-auto px-8 py-12 pb-20">
-        {/* Breadcrumb */}
+        {/* Building-block breadcrumb */}
         <StepBreadcrumb
-          step={step}
+          step={step as number}
           format={format}
           style={style}
           onEditFormat={() => setStep(1)}
@@ -117,12 +122,17 @@ export default function Home() {
           <ToneStep selected={format} onSelect={handleFormatSelect} />
         )}
 
-        {/* Step 2 — Style (unique per format) */}
+        {/* Step 2 — Style */}
         {step === 2 && format && (
-          <ContextStep
+          <ContextStep format={format} selected={style} onSelect={setStyle} />
+        )}
+
+        {/* Step 2.5 — Confirmation moment */}
+        {step === 2.5 && format && style && (
+          <ConfirmationMoment
             format={format}
-            selected={style}
-            onSelect={setStyle}
+            style={style}
+            onContinue={() => setStep(3)}
           />
         )}
 
@@ -156,7 +166,7 @@ export default function Home() {
           />
         )}
 
-        {/* Continue — steps 1 & 2 */}
+        {/* Continue button — steps 1 & 2 only */}
         {(step === 1 || step === 2) && (
           <div className="flex justify-center mt-12">
             <button
