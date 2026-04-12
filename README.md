@@ -1,12 +1,4 @@
-# ClarityAI
-
-> Think better. Express clearly.
-
-ClarityAI is a guided AI writing tool that transforms raw, unstructured thoughts into polished, purpose-built content. It is not a chatbot. It is a structured thinking system — built around the idea that most people know what they want to say, they just need help saying it well.
-
----
-
-## What it does
+## What ClarityAI does
 
 You bring the raw material. ClarityAI handles the structure, tone, and delivery.
 
@@ -123,18 +115,6 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000).
 
 ---
-
-## Deploy to Vercel
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
-
-1. Push your repo to GitHub
-2. Import it in [Vercel](https://vercel.com)
-3. Add `GROQ_API_KEY` as an environment variable in the Vercel dashboard
-4. Deploy
-
----
-
 ## Project structure
 
 ```
@@ -158,13 +138,3 @@ clarityai/
 ```
 
 ---
-
-## Environment variables
-
-| Variable | Description |
-|---|---|
-| `GROQ_API_KEY` | Your Groq API key. Never commit this. |
-
----
-
-Built by [@mjayson20](https://github.com/mjayson20)
